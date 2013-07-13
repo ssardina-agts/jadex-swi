@@ -1,3 +1,28 @@
+Getting started with using a prolog-backed belief in your Jadex agent
+=====================================================================
+
+create a file named `a_priori_knowledge.pl` with the content:
+
+    % a basic prolog file that will be used as the agent's starting knowledge
+
+    is_yellow(banana).
+    is_yellow(smiley).
+    is_yellow(submarine).
+
+
+inside your Agent Definition File (ADF):
+
+    <imports>
+        <import>au.edu.rmit.csit.swijadex.PrologBridge</import>
+    </imports>
+
+    <beliefs>
+        <belief name="prolog" class="PrologBridge">
+            <fact>new PrologBridge().havingConsulted("a_priori_knowledge.pl")</fact>
+        </belief>
+    </beliefs>
+
+
 You want to check a single ground fact (i.e. without any variables in the query)
 --------------------------------------------------------------------------------
 
