@@ -18,4 +18,14 @@ Requirements
         are possibly easier to debug
         provide multiple prolog instances
         see InterProlog
+* Belief changes inside Prolog should trigger event listeners in Jadex
+    normally, jadex event handling is done Bean-style, but since it isn't attributes on the PrologBridge instance that are changing, this won't work cleanly.
+    perhaps, from prolog, we need to pass events to java, then, somehow, map those events to triggers in jadex (e.g. plan triggers)
+* Multiple agents should be able to share a knowledgebase
+* Multiple agents should be able to have separate knowledgebases
+* A Single agent should be able to have multiple knowledgebases
+* User should be able to use SWI-Jadex in multithreaded programs
+* An agent should be able to use a knowledgebase running on a separate computer
 
+* Will we want to support Prologs other than SWI in the future?
+* Will we want to support some way of debugging Prolog through the Jadex Control Center?
