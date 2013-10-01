@@ -1,0 +1,40 @@
+# Maven
+target/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# VIM
+*.s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+# Eclipse
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+.externalToolBuilders/
+*.launch
+.cproject
+.buildpath
+
+# Linux
+.*
+!.gitignore
+*~
