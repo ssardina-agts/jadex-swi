@@ -89,3 +89,13 @@ inside a plan body:
 
     String name = yellowThing.name(); // "London" as String
     String string = yellowThing.toString(); // "'London'" as String escaped for use as atom in Prolog
+
+You want to add/remove/modify a belief
+--------------------------------------
+
+#TODO
+
+You want to set up the agent's initial knowledgebase
+----------------------------------------------------
+
+#TODO
