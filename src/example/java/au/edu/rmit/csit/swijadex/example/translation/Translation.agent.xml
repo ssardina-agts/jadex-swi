@@ -1,0 +1,68 @@
+<!-- A simple translation agent using a passive plan. -->
+<agent xmlns="http://jadex.sourceforge.net/jadex"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jadex.sourceforge.net/jadex
+                      	http://jadex.sourceforge.net/jadex-bdi-2.3.xsd"
+	name="Translation" package="au.edu.rmit.csit.swijadex.example.translation">
+
+	<imports>
+		<import>java.util.logging.*</import>
+		<import>au.edu.rmit.csit.swijadex.PrologEngine</import>
+		<import>au.edu.rmit.csit.swijadex.JPLEngineFactory</import>
+	</imports>
+
+	<beliefs>
+		<belief name="dictionary" class="PrologEngine">
+			<fact>new JPLEngineFactory().buildPrologEngine().havingConsulted("target/classes/dictionary.pl")</fact>
+		</belief>
+	</beliefs>
+
+	<plans>
+		<plan name="translate">
+			<body class="TranslatePlan" />
+			<trigger>
+				<messageevent ref="request_translation" />
+			</trigger>
+		</plan>
+		<plan name="add_word">
+			<body class="AddWordPlan" />
+			<trigger>
+				<messageevent ref="request_to_add_word" />
+			</trigger>
+		</plan>
+		<plan name="find_synonyms">
+			<body class="FindSynonymsPlan" />
+			<trigger>
+				<messageevent ref="request_to_find_synonyms" />
+			</trigger>
+		</plan>
+	</plans>
+
+	<events>
+		<messageevent name="request_translation" direction="receive" type="fipa">
+			<parameter name="performative" class="String" direction="fixed">
+				<value>jadex.bridge.fipa.SFipa.REQUEST</value>
+			</parameter>
+			<match>$content instanceof String &amp;&amp; ((String) $content).startsWith("translate")</match>
+		</messageevent>
+		<messageevent name="request_to_add_word" direction="receive" type="fipa">
+			<parameter name="performative" class="String" direction="fixed">
+				<value>jadex.bridge.fipa.SFipa.REQUEST</value>
+			</parameter>
+			<match>$content instanceof String &amp;&amp; ((String) $content).startsWith("add")</match>
+		</messageevent>
+		<messageevent name="request_to_find_synonyms" direction="receive" type="fipa">
+			<parameter name="performative" class="String" direction="fixed">
+				<value>jadex.bridge.fipa.SFipa.REQUEST</value>
+			</parameter>
+			<match>$content instanceof String &amp;&amp; ((String) $content).startsWith("synonyms")</match>
+		</messageevent>
+	</events>
+
+	<properties>
+		<property name="debugging">true</property>
+		<property name="logging.level">Level.INFO</property>
+		<property name="logging.useParentHandlers">true</property>
+	</properties>
+</agent>
+

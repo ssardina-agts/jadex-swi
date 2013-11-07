@@ -66,7 +66,7 @@ public class JPLEngine implements PrologEngine {
 		System.out.println("Called getSolution(" + query + ")");
 		@SuppressWarnings("unchecked")
 		Hashtable<String, Term> solution = this.query(query).oneSolution();
-		System.out.println("Returning solution:" + solution);
+		System.out.println("Returning solution: " + solution);
 		return solution;
 	}
 	
@@ -74,7 +74,7 @@ public class JPLEngine implements PrologEngine {
 		System.out.println("Called getSolution(" + query + "), " + params);
 		@SuppressWarnings("unchecked")
 		Hashtable<String, Term> solution = this.query(query, params).oneSolution();
-		System.out.println("Returning solution:" + solution);
+		System.out.println("Returning solution: " + solution);
 		return solution;
 	}
 	

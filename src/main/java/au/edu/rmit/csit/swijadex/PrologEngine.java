@@ -41,18 +41,24 @@ public interface PrologEngine {
 
 	public Hashtable<String, Term> getSolution(String query, Term... params);
 	
+//	public Hashtable<String, Term> getSolution(String query, String... params);
+	
 	public boolean hasSolution(String query);
 	
 	public boolean hasSolution(String query, Term... params);
 	
+//	public boolean hasSolution(String query, String... params);
+	
 	public Hashtable<String, Atom>[] getAllSolutions(String query);
 	
 	public Hashtable<String, Atom>[] getAllSolutions(String query, Term... params);
+
+//	public Hashtable<String, Atom>[] getAllSolutions(String query, String... params);
 
 	public void dumpListing();
 	
 	public Atom deflateObject(Object object);
 	
 	public Object inflateAtom(Atom key);
-	
+
 }
