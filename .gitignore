@@ -6,6 +6,7 @@ target/
 *.jar
 *.war
 *.ear
+hs_err_pid*.log
 
 # VIM
 *.s[a-w][a-z]
@@ -38,3 +39,8 @@ local.properties
 .*
 !.gitignore
 *~
+
+# JADEX
+*.settings.xml
+
+keystore
