@@ -149,7 +149,7 @@ we'll use Jack for this example:
 now, you can add the object to the knowledge base:
 
     Atom prologJack = kb.deflateObject(jack); // turn it into a prolog atom
-    iut.hasSolution("asserta(id('?'))", prologJack); // add it to the knowledge base
+    kb.hasSolution("asserta(id('?'))", prologJack); // add it to the knowledge base
 
 and now you can:
 
