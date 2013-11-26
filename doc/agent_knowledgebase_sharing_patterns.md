@@ -9,17 +9,27 @@ Each agent can have its own knowledgebase
 
 In Agent X's ADF:
 
+    <imports>
+        <import>au.edu.rmit.csit.swijadex.PrologEngine</import>
+        <import>au.edu.rmit.csit.swijadex.JPLEngineFactory</import>
+    </imports>
+
     <beliefs>
         <belief name="prolog knowledgebase A>
-            <fact>PrologEngineFactory.buildPrologEngine()</fact>
+            <fact>new JPLEngineFactory().buildPrologEngine()</fact>
         </belief>
     </beliefs>
 
 In Agent Y's ADF:
 
+    <imports>
+        <import>au.edu.rmit.csit.swijadex.PrologEngine</import>
+        <import>au.edu.rmit.csit.swijadex.JPLEngineFactory</import>
+    </imports>
+
     <beliefs>
         <belief name="prolog knowledgebase B>
-            <fact>PrologEngineFactory.buildPrologEngine()</fact>
+            <fact>new JPLEngineFactory().buildPrologEngine()</fact>
         </belief>
     </beliefs>
 
@@ -30,26 +40,88 @@ An agent can have multiple knowledgebases
 
 In Agent X's ADF:
 
+    <imports>
+        <import>au.edu.rmit.csit.swijadex.PrologEngine</import>
+        <import>au.edu.rmit.csit.swijadex.JPLEngineFactory</import>
+    </imports>
+
     <beliefs>
         <belief name="prolog knowledgebase A">
-            <fact>PrologEngineFactory.buildPrologEngine()</fact>
+            <fact>new JPLEngineFactory().buildPrologEngine()</fact>
         </belief>
         <belief name="prolog knowledgebase B">
-            <fact>PrologEngineFactory.buildPrologEngine()</fact>
+            <fact>new JPLEngineFactory().buildPrologEngine()</fact>
         </belief>
     </beliefs>
+
 
 Multiple agents can share a single knowledgebase
 ------------------------------------------------
 
 ![Multiple agents can share a single knowledgebase](doc/agent_knowledgebase_sharing_patterns_-_multiple_agents_share_single_knowledgebase.png)
 
-TODO!
+In Agent X's ADF:
+
+    <imports>
+        <import>au.edu.rmit.csit.swijadex.PrologEngine</import>
+        <import>au.edu.rmit.csit.swijadex.JPLEngineFactory</import>
+    </imports>
+
+    <beliefs>
+        <belief name="prolog knowledgebase A">
+            <fact>new JPLEngine("shared_kb")</fact>
+        </belief>
+    </beliefs>
+
+In Agent Y's ADF:
+
+    <imports>
+        <import>au.edu.rmit.csit.swijadex.PrologEngine</import>
+        <import>au.edu.rmit.csit.swijadex.JPLEngineFactory</import>
+    </imports>
+
+    <beliefs>
+        <belief name="prolog knowledgebase A">
+            <fact>new JPLEngine("shared_kb")</fact>
+        </belief>
+    </beliefs>
+
 
 Multiple agents can share multiple knowledgebases
 -------------------------------------------------
 
 ![Multiple agents can share multiple knowledgebases](doc/agent_knowledgebase_sharing_patterns_-_multiple_agents_share_multiple_knowledgebases.png)
 
-TODO!
+In Agent X's ADF:
+
+    <imports>
+        <import>au.edu.rmit.csit.swijadex.PrologEngine</import>
+        <import>au.edu.rmit.csit.swijadex.JPLEngineFactory</import>
+    </imports>
+
+    <beliefs>
+        <belief name="prolog knowledgebase A">
+            <fact>new JPLEngine("share_this")</fact>
+        </belief>
+        <belief name="prolog knowledgebase B">
+            <fact>new JPLEngine("share_that")</fact>
+        </belief>
+    </beliefs>
+
+In Agent Y's ADF:
+
+    <imports>
+        <import>au.edu.rmit.csit.swijadex.PrologEngine</import>
+        <import>au.edu.rmit.csit.swijadex.JPLEngineFactory</import>
+    </imports>
+
+    <beliefs>
+        <belief name="prolog knowledgebase A">
+            <fact>new JPLEngine("share_this")</fact>
+        </belief>
+        <belief name="prolog knowledgebase B">
+            <fact>new JPLEngine("share_that")</fact>
+        </belief>
+    </beliefs>
+
 
