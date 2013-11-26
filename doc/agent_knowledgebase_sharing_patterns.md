@@ -90,7 +90,7 @@ In Agent Y's ADF:
 Multiple agents can share multiple knowledgebases
 -------------------------------------------------
 
-![Multiple agents can share multiple knowledgebases](doc/agent_knowledgebase_sharing_patterns_-_multiple_agents_share_multiple_knowledgebases.png)
+![Multiple agents can share multiple knowledgebases](https://bitbucket.org/ssardina/swi-jadex/src/master/doc/agent_knowledgebase_sharing_patterns_-_multiple_agents_share_multiple_knowledgebases.png)
 
 In Agent X's ADF:
 
