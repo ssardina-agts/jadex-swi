@@ -13,14 +13,21 @@ create a file named `a_priori_knowledge.pl` with the content:
 inside your Agent Definition File (ADF):
 
     <imports>
-        <import>au.edu.rmit.csit.swijadex.PrologBridge</import>
+        <import>au.edu.rmit.csit.swijadex.PrologEngine</import>
+        <import>au.edu.rmit.csit.swijadex.JPLEngineFactory</import>
     </imports>
 
     <beliefs>
-        <belief name="prolog" class="PrologBridge">
-            <fact>new PrologBridge().havingConsulted("a_priori_knowledge.pl")</fact>
+        <belief name="knowledge_base" class="PrologEngine">
+            <fact>new JPLEngineFactory().buildPrologEngine().havingConsulted("a_priori_knowledge.pl")</fact>
         </belief>
     </beliefs>
+
+
+You want to access your prolog knowledge base in an agent's plan body
+---------------------------------------------------------------------
+
+    PrologEngine kb = getBeliefbase().knowledge_base; // use the belief name defined in the ADF
 
 
 You want to check a single ground fact (i.e. without any variables in the query)
@@ -28,7 +35,7 @@ You want to check a single ground fact (i.e. without any variables in the query)
 
 inside a plan body:
 
-    boolean isBananaYellow = getBeliefbase().prolog.query("is_yellow(banana)").hasSolution();
+    boolean isBananaYellow = kb.hasSolution("is_yellow(banana)"); // you can pass in any valid prolog source code
 
     if (isBananaYellow) {
         // it's provably yellow
@@ -43,10 +50,10 @@ You want to lookup a single answer
 
 inside a plan body:
 
-    Hashtable somethingYellow = getBeliefbase().prolog.query("is_yellow(X)").oneSolution(); // {"X", "banana"} or null
+    Hashtable somethingYellow = kb.getSolution("is_yellow(Something)"); // {"Something", "banana"} or null
 
     if (somethingYellow != null) {
-        Atom yellowThing = somethingYellow.get("X"); // "banana" as Atom
+        Atom yellowThing = somethingYellow.get("Something"); // "banana" as Atom
     }
     else {
         // there's nothing yellow
@@ -58,11 +65,12 @@ You want to iterate through the answers
 
 inside a plan body:
 
-    Query isYellow = getBeliefbase().prolog.query("is_yellow(X)");
+    Query isYellow = kb.query("is_yellow(X)");
 
     while (isYellow.hasMoreSolutions()) {
         Hashtable yellowThing = isYellow.nextSolution(); // {"X", "banana"} then {"X", "smiley"} then {"X", "submarine"} on subsequent iterations
         // do something with yellowThing.get("X").name()
+        isYellow.close(); // this is done automatically when the query is exhausted, but if you exit the iteration prematurely, close it manually!
     }
 
 
@@ -71,7 +79,7 @@ You want a fixed number of answers
 
 inside a plan body:
 
-    Hashtable[] topThreeYellowThings = getBeliefbase().prolog.query("is_yellow(X)").nSolutions(3); // for the first 3 answers
+    Hashtable[] topThreeYellowThings = kb.query("is_yellow(X)").nSolutions(3); // for the first 3 answers
 
 
 You want to look up all answers
@@ -79,7 +87,7 @@ You want to look up all answers
 
 inside a plan body:
 
-    Hashtable[] everythingYellow = getBeliefbase().prolog.query("is_yellow(X)").allSolutions(); // [{"X", "banana"}, {"X", "smiley"}, {"X", "submarine"}] or []
+    Hashtable[] everythingYellow = kb.getAllSolutions("is_yellow(X)"); // [{"X", "banana"}, {"X", "smiley"}, {"X", "submarine"}] or []
 
 
 You want to convert an Atom to a String
@@ -90,12 +98,26 @@ inside a plan body:
     String name = yellowThing.name(); // "London" as String
     String string = yellowThing.toString(); // "'London'" as String escaped for use as atom in Prolog
 
-You want to add/remove/modify a belief
+You want to add a fact
 --------------------------------------
 
-#TODO
+inside a plan body:
 
-You want to set up the agent's initial knowledgebase
-----------------------------------------------------
+    kb.asserta("is_yellow(cheese)"); // add it before other facts
+    kb.assertz("is_yellow(sun)"); // add it after other facts
 
-#TODO
+You want to remove a fact
+--------------------------------------
+
+inside a plan body:
+
+    kb.retract("is_yellow(blue_cheese)");
+
+You want to modify a fact
+--------------------------------------
+
+to do this, simply remove the old fact and add the new fact; so inside a plan body:
+
+    kb.retract("is_yellow(blue_cheese)");
+    kb.asserta("is_blue(blue_cheese)");
+
