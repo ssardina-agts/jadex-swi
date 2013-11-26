@@ -21,10 +21,10 @@ import au.edu.rmit.csit.swijadex.PrologEngine;
 @SuppressWarnings("serial")
 public class FindSynonymsPlan extends Plan {
 
-	protected IExpression querytranslate;
-	protected IExpression queryfind;
-	String reply;  // The message event type of the reply.
-	String content; // The content of the reply message event.
+	//protected IExpression querytranslate;
+	//protected IExpression queryfind;
+	//String reply;  // The message event type of the reply.
+	//String content; // The content of the reply message event.
 
 	public FindSynonymsPlan() {
 		getLogger().info("I have created " + this);

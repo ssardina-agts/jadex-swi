@@ -38,6 +38,14 @@ jpl_engine_1:es_de_transitively(ES, DE) :- jpl_engine_1:de_es_transitively(DE, E
 jpl_engine_1:en_es_transitively(EN, ES) :- jpl_engine_1:en_de_symmetrically(EN, DE), jpl_engine_1:de_es_symmetrically(DE, ES).
 jpl_engine_1:es_en_transitively(ES, EN) :- jpl_engine_1:en_es_transitively(EN, ES).
 
+% synonyms are trivially found by finding other words that translate to the same foreign word
+jpl_engine_1:synonym(en, EN, Synonym) :- jpl_engine_1:en_de(EN, DE) , jpl_engine_1:en_de(Synonym, DE).
+jpl_engine_1:synonym(en, EN, Synonym) :- jpl_engine_1:en_es(EN, ES) , jpl_engine_1:en_es(Synonym, ES).
+jpl_engine_1:synonym(de, DE, Synonym) :- jpl_engine_1:de_en(DE, EN) , jpl_engine_1:de_en(Synonym, EN).
+jpl_engine_1:synonym(de, DE, Synonym) :- jpl_engine_1:de_es(DE, ES) , jpl_engine_1:en_es(Synonym, ES).
+jpl_engine_1:synonym(es, ES, Synonym) :- jpl_engine_1:es_de(ES, DE) , jpl_engine_1:es_de(Synonym, DE).
+jpl_engine_1:synonym(es, ES, Synonym) :- jpl_engine_1:es_en(ES, EN) , jpl_engine_1:es_en(Synonym, EN).
+
 % the actual word pairs
 jpl_engine_1:en_de_wordpair('milk', 'Milch').
 jpl_engine_1:en_de_wordpair('dog', 'Hund').

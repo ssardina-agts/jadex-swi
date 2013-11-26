@@ -13,7 +13,8 @@
 
 	<beliefs>
 		<belief name="dictionary" class="PrologEngine">
-			<fact>new JPLEngineFactory().buildPrologEngine().havingConsulted("target/classes/dictionary.pl")</fact>
+<!-- 			<fact>new JPLEngineFactory().buildPrologEngine().havingConsulted("target/classes/dictionary.pl")</fact> -->
+			<fact>new JPLEngineFactory().buildPrologEngine().havingConsulted("target/classes/dictionary_with_hardcoded_module.pl")</fact>
 		</belief>
 	</beliefs>
 

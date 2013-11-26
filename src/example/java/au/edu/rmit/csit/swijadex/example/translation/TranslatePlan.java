@@ -20,7 +20,6 @@ public class TranslatePlan extends Plan {
 	
 	public TranslatePlan() {
 		getLogger().info("I have created " + this);
-		//this.queryword = getExpression("query_egword");
 	}
 
 	public void body() {
@@ -50,23 +49,6 @@ public class TranslatePlan extends Plan {
 			getLogger().warning("Sorry, format not correct.");
 		}
 		
-//		if(!"english_german".equals(getParameter("direction").getValue())) {
-//			getLogger().info("Sorry, I can only translate english_german");
-//			fail();
-//		}
-//		
-//		String eword = (String) getParameter("word").getValue();
-//		
-//		String gword = (String) queryword.execute("$eword", eword);
-//		
-//		if (gword != null) {
-//			getLogger().info("I'm now translating from English to German: " + eword + " - " + gword);
-//			getParameter("result").setValue(gword);
-//		}
-//		else {
-//			fail();
-//		}
-
 	}
 	
 }
