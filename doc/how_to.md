@@ -121,3 +121,42 @@ to do this, simply remove the old fact and add the new fact; so inside a plan bo
     kb.retract("is_yellow(blue_cheese)");
     kb.asserta("is_blue(blue_cheese)");
 
+You want to be able to reason over an entire java object in prolog
+------------------------------------------------------------------
+
+this example will assume a plain old java object Person with the accessors name, age, gender
+
+first, you have to teach prolog what a person is, by consulting a file with the following content:
+
+    :- dynamic id/1.
+
+    name_of(Id, Name) :- jpl_call(@(Id), 'getName', [], Name).
+    age_of(Id, Age) :- jpl_call(@(Id), 'getAge', [], Age).
+    gender_of(Id, Gender) :- jpl_call(@(Id), 'getGender', [], Gender).
+
+    person(Id, Name, Age, Gender) :-
+        id(Id),
+        name_of(Id, Name),
+        age_of(Id, Age),
+        gender_of(Id, Gender).
+
+this basically creates a rule allowing prolog to use the java accessors to access the actual object on the java side.
+
+we'll use Jack for this example:
+
+    Person jack = new Person("Jack", 23, "male"); // you have some object in java...
+
+now, you can add the object to the knowledge base:
+
+    Atom prologJack = kb.deflateObject(jack); // turn it into a prolog atom
+    iut.hasSolution("asserta(id('?'))", prologJack); // add it to the knowledge base
+
+and now you can:
+
+    Hashtable<String, Term> javaJack = kb.getSolution("person(Id, 'Jack', Age, Gender)"); // get the first person named Jack
+    Hashtable<String, Term> tweens = kb.getAllSolutions("person(Id, Name, 23, Gender)"); // get all persons aged 23
+
+and finally, with the Id, you can get back to the original object:
+
+    Person JackInJavaAgain = (Person) kb.inflateAtom((Atom) javaJack.get("Id"));
+
