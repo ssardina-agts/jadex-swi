@@ -36,7 +36,7 @@ In Agent Y's ADF:
 An agent can have multiple knowledgebases
 -----------------------------------------
 
-![An agent can have multiple knowledgebases](doc/agent_knowledgebase_sharing_patterns_-_agent_has_multiple_knowledgebases.png)
+![An agent can have multiple knowledgebases](https://www.dropbox.com/s/nmw89k2ftiq444z/agent_knowledgebase_sharing_patterns_-_agent_has_multiple_knowledgebases.png)
 
 In Agent X's ADF:
 
