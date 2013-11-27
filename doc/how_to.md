@@ -181,6 +181,18 @@ and finally, with the Id, you can get back to the original object:
     Person peterInJavaAgain = (Person) kb.objectify((Atom) javaPeter.get("Id")); // peter == peterInJavaAgain
 
 
+You want to specify a context condition for a plan
+--------------------------------------------------
+
+For example, to eat a banana, when your agent believes it's yellow, in your ADF:
+
+    <plans>
+        <plan name="eat_banana">
+            <body impl="EatBanana"/>
+            <contextcondition>$beliefbase.knowledge_base.hasSolution("is_yellow(banana)")</contextcondition>
+        </plan>
+    </plans>
+
 You want to do something that SWI-Jadex doesn't support
 -------------------------------------------------------
 
