@@ -165,3 +165,15 @@ and finally, with the Id, you can get back to the original object:
     Person PeterInJavaAgain = (Person) kb.inflateAtom((Atom) javaPeter.get("Id"));
 
 
+You want to do something that SWI-Jadex doesn't support
+-------------------------------------------------------
+
+you can bypass SWI-Jadex and access prolog using JPL. You'll need to manually specify the module in your queries.
+
+to obtain the module each knowledge base resides in, use:
+
+    kb.getModule();
+
+see also the JPL documentation.
+
+
