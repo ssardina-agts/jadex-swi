@@ -98,6 +98,7 @@ inside a plan body:
     String name = yellowThing.name(); // "London" as String
     String string = yellowThing.toString(); // "'London'" as String escaped for use as atom in Prolog
 
+
 You want to add a fact
 --------------------------------------
 
@@ -106,12 +107,14 @@ inside a plan body:
     kb.asserta("is_yellow(cheese)"); // add it before other facts
     kb.assertz("is_yellow(sun)"); // add it after other facts
 
+
 You want to remove a fact
 --------------------------------------
 
 inside a plan body:
 
     kb.retract("is_yellow(blue_cheese)");
+
 
 You want to modify a fact
 --------------------------------------
@@ -120,6 +123,7 @@ to do this, simply remove the old fact and add the new fact; so inside a plan bo
 
     kb.retract("is_yellow(blue_cheese)");
     kb.asserta("is_blue(blue_cheese)");
+
 
 You want to be able to reason over an entire java object in prolog
 ------------------------------------------------------------------
@@ -142,21 +146,22 @@ first, you have to teach prolog what a person is, by consulting a file with the 
 
 this basically creates a rule allowing prolog to use the java accessors to access the actual object on the java side.
 
-we'll use Jack for this example:
+we'll use Peter for this example:
 
-    Person jack = new Person("Jack", 23, "male"); // you have some object in java...
+    Person peter = new Person("Peter", 23, "male"); // you have some object in java...
 
 now, you can add the object to the knowledge base:
 
-    Atom prologJack = kb.deflateObject(jack); // turn it into a prolog atom
-    kb.hasSolution("asserta(id('?'))", prologJack); // add it to the knowledge base
+    Atom prologPeter = kb.deflateObject(peter); // turn it into a prolog atom
+    kb.asserta("id('?')", prologPeter); // add it to the knowledge base
 
 and now you can:
 
-    Hashtable<String, Term> javaJack = kb.getSolution("person(Id, 'Jack', Age, Gender)"); // get the first person named Jack
+    Hashtable<String, Term> javaPeter = kb.getSolution("person(Id, 'Peter', Age, Gender)"); // get the first person named Peter
     Hashtable<String, Term> tweens = kb.getAllSolutions("person(Id, Name, 23, Gender)"); // get all persons aged 23
 
 and finally, with the Id, you can get back to the original object:
 
-    Person JackInJavaAgain = (Person) kb.inflateAtom((Atom) javaJack.get("Id"));
+    Person PeterInJavaAgain = (Person) kb.inflateAtom((Atom) javaPeter.get("Id"));
+
 
