@@ -168,7 +168,7 @@ we'll use Peter for this example:
 
 now, you can add the object to the knowledge base:
 
-    Atom prologPeter = kb.deflateObject(peter); // turn it into a prolog atom
+    Atom prologPeter = kb.atomise(peter); // turn it into a prolog atom
     kb.asserta("id('" + prologPeter + "')"); // add it to the knowledge base
 
 and now you can:
@@ -178,7 +178,7 @@ and now you can:
 
 and finally, with the Id, you can get back to the original object:
 
-    Person peterInJavaAgain = (Person) kb.inflateAtom((Atom) javaPeter.get("Id")); // peter == peterInJavaAgain
+    Person peterInJavaAgain = (Person) kb.objectify((Atom) javaPeter.get("Id")); // peter == peterInJavaAgain
 
 
 You want to do something that SWI-Jadex doesn't support
