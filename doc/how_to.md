@@ -100,7 +100,7 @@ inside a plan body:
 
 
 You want to add a fact
---------------------------------------
+----------------------
 
 inside a plan body:
 
@@ -109,7 +109,7 @@ inside a plan body:
 
 
 You want to remove a fact
---------------------------------------
+-------------------------
 
 inside a plan body:
 
@@ -117,7 +117,7 @@ inside a plan body:
 
 
 You want to modify a fact
---------------------------------------
+-------------------------
 
 to do this, simply remove the old fact and add the new fact; so inside a plan body:
 
@@ -125,12 +125,28 @@ to do this, simply remove the old fact and add the new fact; so inside a plan bo
     kb.asserta("is_blue(blue_cheese)");
 
 
+You want to parameterise your queries
+-------------------------------------
+
+any query can be parameterised (like a prepared statement in SQL)
+
+this is useful both for query re-use as well as to protect against injection attacks from user input
+
+simply use question marks ("?") as place holders, and pass in the parameters, when executing the query:
+
+    kb.hasSolution("is_yellow(?)", someUserInput);
+    kb.getSolution("person(Id, ?, ?, ?)", name, age, gender);
+    kb.getAllSolutions("person(Id, ?, ?, ?)", name, age, gender);
+
+make sure the number of question marks and parameters match
+
+
 You want to be able to reason over an entire java object in prolog
 ------------------------------------------------------------------
 
 this example will assume a plain old java object Person with the accessors name, age, gender
 
-first, you have to teach prolog what a person is, by consulting a file with the following content:
+first, you have to teach prolog what a person is, by `consult()`ing a file with the following content:
 
     :- dynamic id/1.
 
@@ -153,7 +169,7 @@ we'll use Peter for this example:
 now, you can add the object to the knowledge base:
 
     Atom prologPeter = kb.deflateObject(peter); // turn it into a prolog atom
-    kb.asserta("id('?')", prologPeter); // add it to the knowledge base
+    kb.asserta("id('" + prologPeter + "')"); // add it to the knowledge base
 
 and now you can:
 
@@ -162,7 +178,7 @@ and now you can:
 
 and finally, with the Id, you can get back to the original object:
 
-    Person PeterInJavaAgain = (Person) kb.inflateAtom((Atom) javaPeter.get("Id"));
+    Person peterInJavaAgain = (Person) kb.inflateAtom((Atom) javaPeter.get("Id")); // peter == peterInJavaAgain
 
 
 You want to do something that SWI-Jadex doesn't support
@@ -174,6 +190,6 @@ to obtain the module each knowledge base resides in, use:
 
     kb.getModule();
 
-see also the JPL documentation.
+for further information, see the JPL documentation.
 
 
