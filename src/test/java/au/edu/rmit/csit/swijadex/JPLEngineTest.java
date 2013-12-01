@@ -100,7 +100,7 @@ public class JPLEngineTest {
 	public void shouldbeAbleToDeflateAndInflateObjects() {
 		Person john = new Person("John", 23);
 		
-		Object reinflatedJohn = iut.inflateAtom(iut.deflateObject(john));
+		Object reinflatedJohn = iut.objectify(iut.atomise(john));
 		
 		assertThat(john, is(equalTo(reinflatedJohn)));
 	}
@@ -109,9 +109,9 @@ public class JPLEngineTest {
 	public void shouldBeAbleToTransferOpaqueObjectsRoundTrip() {
 		Person original = new Person("Bob Smith", 35);
 		
-		iut.asserta("person(" + iut.deflateObject(original) + ")");
+		iut.asserta("person(" + iut.atomise(original) + ")");
 		
-		Person reconstituted = (Person) iut.inflateAtom((Atom) iut.getSolution("person(X)").get("X"));
+		Person reconstituted = (Person) iut.objectify((Atom) iut.getSolution("person(X)").get("X"));
 		
 		assertThat(original, is(equalTo(reconstituted)));
 	}
@@ -123,7 +123,7 @@ public class JPLEngineTest {
 		
 		iut.consult("target/test-classes/person.pl");
 		
-		Atom prologJack = iut.deflateObject(jack);
+		Atom prologJack = iut.atomise(jack);
 		iut.hasSolution("asserta(id('?'))", prologJack);
 				
 		Hashtable<String, Term> javaJack = iut.getSolution("person(Id, 'Jack', Age, Gender, Spouse)");
@@ -139,7 +139,7 @@ public class JPLEngineTest {
 
 		iut.consult("target/test-classes/person.pl");
 		
-		Atom prologJohn = iut.deflateObject(john);
+		Atom prologJohn = iut.atomise(john);
 		
 		iut.hasSolution("asserta(id('?'))", prologJohn);
 					
@@ -163,7 +163,7 @@ public class JPLEngineTest {
 
 		iut.consult("target/test-classes/person.pl");
 		
-		Atom prologJohn = iut.deflateObject(john);
+		Atom prologJohn = iut.atomise(john);
 		
 //		iut.hasSolution("asserta(id('?'))", prologJohn);
 					
@@ -205,8 +205,8 @@ public class JPLEngineTest {
 	public void shouldBeAbleToReasonWithDeflatedObject() {
 		Person john = new Person("John", 23);
 		
-		iut.assertz("is_married(" + iut.deflateObject(john) + ")");
-		Object somebodyMarried = iut.inflateAtom((Atom) iut.getSolution("is_married(X)").get("X"));
+		iut.assertz("is_married(" + iut.atomise(john) + ")");
+		Object somebodyMarried = iut.objectify((Atom) iut.getSolution("is_married(X)").get("X"));
 		
 		assertEquals(john, somebodyMarried);
 	}

@@ -110,11 +110,11 @@ public interface PrologEngine {
 	/*
 	 * turn a java-side object into an ID that can be used in prolog to identify that object
 	 */
-	public Atom deflateObject(Object object);
+	public Atom atomise(Object object);
 	
 	/*
 	 * turn a prolog-side ID into the java object it refers to
 	 */
-	public Object inflateAtom(Atom key);
+	public Object objectify(Atom key);
 
 }

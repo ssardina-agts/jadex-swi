@@ -102,23 +102,16 @@ public class JPLEngine implements PrologEngine {
 		this.query("listing").hasSolution();
 	}
 	
-	// change to atomise?
-	public Atom deflateObject(Object object) {
+	public Atom atomise(Object object) {
 		Atom key = new Atom( jpl.fli.Prolog.object_to_tag(object) );
 		this.objects.put(key.name(), object);
 		return key;
 	}
 	
-	// change to objectify?
-	public Object inflateAtom(Atom key) {
-//		System.out.println("inflating atom " + key);
-//		System.out.println("out of objects " + objects);
+	public Object objectify(Atom key) {
 		if (key.isJNull()) {
 			return null;
 		}
-//		if (objects.containsKey(key.name())) {
-//			System.out.println("objects contains key");
-//		}
 		Object object = this.objects.get(key.name());
 		
 		// just use: tag_to_object?
@@ -126,7 +119,6 @@ public class JPLEngine implements PrologEngine {
 		// from being GC'd with dangling references on the prolog side? 
 		//Object object = jpl.fli.Prolog.tag_to_object(key.name());
 		
-//		System.out.println("resulting in object " + object);
 		return object;
 	}
 	
