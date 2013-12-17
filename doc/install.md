@@ -32,15 +32,39 @@ There are many ways to set up SWI-Jadex. Here is one that works.
 --------------------
 
 * SWI-Jadex version 1.0
-* simply download the jar file from the Bitbucket repository into ~/opt/
+* simply download the jar file from the Downloads section of the repository webpage on Bitbucket into ~/opt/
+* -or- to build from source:
+    * modify `build_conf.sh` to reflect your system's setup / install locations
+    * run `build.sh` to compile the source
 
 
-5. create a new Java project
+5. run the example agent
+------------------------
+* try running the example translation agent found in the SWI-Jadex bitbucket repository
+    * run `run_example.sh` (make sure you've configured your `build_conf.sh`)
+    * the JCC should pop up
+    * load the Translation agent
+    * start the agent
+    * switch to the messaging center
+    * set `Performative` to "request"
+    * set `Protocol` to "fipa-request"
+    * set the receiver (double click the Translation agent in the left pane)
+    * set `Content` to "translate de es Hund"
+    * hit `Send`
+    * confirm that there are a bunch of messages on stdout ending in "... perro"
+    * set `Content` to "synonyms en cat" & hit `Send`
+    * confirm on stdout that there are no known synonyms for cat
+    * send the message "add en de tiger Katze"
+    * resend the message "synonyms en cat"
+    * confirm that the Translation agent successfully inferred that "tiger" is a synonym of cat (since they both translate to "Katze" in german)
+
+
+6. create a new Java project
 ----------------------------
 
 * put the `jpl.jar` on the classpath
 * put `swi-jadex-1.0.jar` on the classpath
-* try running the example translation agent found in the SWI-Jadex bitbucket repository
+* you may find it useful to use the example agent as starting point
 
 
 troubleshooting
