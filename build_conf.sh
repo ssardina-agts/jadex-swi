@@ -10,7 +10,7 @@
 SWI_JADEX_VERSION=6.2.6
 
 # point this to your jadex directory. It should contain a lib directory containing a number of jar files, like jadex-bridge-2.3.jar
-JADEX_DIR=/opt/jadex
+JADEX_DIR=/opt/jadex-2.3
 
 # point this towards your SWI-Prolog directory
 SWI_DIR=/usr/lib/swi-prolog
